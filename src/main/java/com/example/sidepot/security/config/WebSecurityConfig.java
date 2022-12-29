@@ -2,12 +2,16 @@ package com.example.sidepot.security.config;
 
 import com.example.sidepot.global.Path;
 import com.example.sidepot.security.authentication.JwtAuthenticationProvider;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+
+
+import java.util.List;
 
 
 @EnableWebSecurity
@@ -48,8 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             Path.REST_BASE_PATH + "/staff/register",
     };
 
+
+
     public WebSecurityConfig(AuthenticationManagerBuilder authenticationManagerBuilder,
-                             JwtAuthenticationProvider jwtAuthenticationProvider) {
+                             JwtAuthenticationProvider jwtAuthenticationProvider) throws Exception {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.authenticationManagerBuilder.authenticationProvider(jwtAuthenticationProvider);
     }
@@ -69,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers(PERMIT_URL_ARRAY).permitAll()
                     .antMatchers(PERMIT_URL_AUTH_ARRAY).permitAll()
-                    .antMatchers(Path.REST_BASE_PATH + "/owner/**").hasAnyRole(ROLE_OWNER,ROLE_ADMIN)
-                    .antMatchers(Path.REST_BASE_PATH + "/staff/**").hasAnyRole(ROLE_STAFF,ROLE_ADMIN)
+                    .antMatchers(Path.REST_BASE_PATH + "/owner/**").permitAll()//hasAnyRole(ROLE_OWNER,ROLE_ADMIN)
+                    .antMatchers(Path.REST_BASE_PATH + "/staff/**").permitAll()//hasAnyRole(ROLE_STAFF,ROLE_ADMIN)
                 .antMatchers(Path.REST_BASE_PATH + "/test/**").authenticated()
                 .anyRequest().permitAll()
                 .and()

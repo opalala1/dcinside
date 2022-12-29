@@ -2,10 +2,14 @@ package com.example.sidepot.security;
 
 import com.example.sidepot.global.error.Exception;
 import com.example.sidepot.security.authentication.JwtAuthenticationToken;
+import com.example.sidepot.security.domain.Auth;
+import com.example.sidepot.security.util.TokenIssuer;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -43,6 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.clearContext();
             }
         }
+
 
         filterChain.doFilter(request,response);
     }
