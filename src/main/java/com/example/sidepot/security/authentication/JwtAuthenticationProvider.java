@@ -52,7 +52,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         Claims claims = issuer.parseAccessClaims(((JwtAuthenticationToken) authentication).getToken());
         //Auth auth = authRepository.findByPhone(claims.getSubject()).orElseThrow(()-> new UsernameNotFoundException("사용자를찾을 수 없음"));
         //return new UsernamePasswordAuthenticationToken(claims.getSubject(),claims.getSubject(),grantedAuthorities(claims));
-        return new JwtAuthenticationToken(claims.getSubject(),claims.getSubject(),grantedAuthorities(claims));
+        return new JwtAuthenticationToken(new Auth(claims),"",grantedAuthorities(claims));
     }
 
     @Override

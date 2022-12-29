@@ -4,9 +4,7 @@ import com.example.sidepot.global.Path;
 import com.example.sidepot.member.app.OwnerService;
 import com.example.sidepot.member.dto.MemberDto.OwnerDto;
 
-
 import com.example.sidepot.security.domain.Auth;
-import com.example.sidepot.security.domain.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +37,7 @@ public class OwnerController {
     @ApiOperation("사장 정보 조회")
     @GetMapping(Path.REST_BASE_PATH + "/owner/read1")
     public ResponseEntity<?> read(@ApiIgnore
-                                      @AuthenticationPrincipal String auth,
+                                      @AuthenticationPrincipal Auth auth,
                                       @AuthenticationPrincipal Principal principal,
                                       @AuthenticationPrincipal Authentication authentication) {
         Object dc  = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
